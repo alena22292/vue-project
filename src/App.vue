@@ -1,6 +1,8 @@
 <template>
   <div class="app">
     <h1>Hello, @{{ user.username }} - {{ fullName }}</h1> 
+    <p>Followers: {{ followers }}</p>
+    <button @click="followUser">Follow</button> <button @click="unFollowUser">Unfollow</button>
   </div>
 </template>
 
@@ -25,7 +27,19 @@ export default {
     fullName() {
       return `${this.user.name} ${this.user.surname}`;
     }
-  }
+  },
+  methods: {
+    followUser() {
+      this.followers++;
+    },
+    unFollowUser() {
+      if (this.followers >= 1) {
+        this.followers--;
+      } else {
+        this.followers = 0;
+      }
+    }
+  },
 }
 
 </script>
@@ -36,7 +50,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2127d2;
   margin-top: 60px;
 }
 </style>
