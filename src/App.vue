@@ -23,6 +23,16 @@ export default {
       }
     }
   },
+  // watch needed to compare the prev and current state of the object:
+  watch: {
+    followers(currentCount, prevCount) {
+      if (currentCount > prevCount) {
+        console.log(`${this.user.name}, you have just gained a new friend!`)
+      } else {
+        console.log(`${this.user.name}, you have just lost one friend!`)
+      }
+    }
+  },
   computed: {
     fullName() {
       return `${this.user.name} ${this.user.surname}`;
@@ -38,8 +48,16 @@ export default {
       } else {
         this.followers = 0;
       }
+    },
+    sayHello(name) {
+      console.log(`Say hello to a new friend ${name} in 2 sec`);
     }
   },
+  // lifecycle hook:
+  mounted() {
+    setTimeout(() => this.sayHello("Alla"), 2000);
+    
+  }
 }
 
 </script>
