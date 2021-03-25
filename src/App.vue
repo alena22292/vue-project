@@ -1,17 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue App Project"/>
+  <div class="app">
+    Hello, @{{ user.username }}
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      followers: 0,
+      user: {
+        id: 1,
+        username: '_AlenaGr',
+        name: 'Alena',
+        surname: 'Gritsiuk',
+        email: 'alena22292@mail.ru',
+        isAdmin: true
+      }
+    }
   }
 }
+
 </script>
 
 <style>
