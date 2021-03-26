@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <UserProfile />
   </div>
 </template>
@@ -15,12 +15,12 @@ export default {
 </script>
 
 <style>
-#app {
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2127d2;
-  margin-top: 60px;
+  color: #276678;
+  margin-top: 20px;
+  padding: 30px 40px;
 }
 </style>
