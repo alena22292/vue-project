@@ -8,6 +8,23 @@
               </div>
               <span class="user-profile__block">Followers: {{ followers }}</span>
               <button @click="followUser">Follow</button> <button @click="unFollowUser">Unfollow</button>
+              <form action="" class="user-profile__form-create" @submit.prevent="createNewPost">
+                  <label for="newPost">New Post</label>
+                  <!-- v-model needs for synce up to the given data() -->
+                  <textarea id="newPost" rows="4" v-model="newPostContent"></textarea>
+                  <div class="user-profile__post-type">
+                      <label for="postType">Post Type</label>
+                      <select id="postType" v-model="selectedPostType">
+                          <!-- :value in this case represents a reference string -->
+                          <option :value="option.value" v-for="(option, index) in postType" :key="index">
+                              {{ option.name }}
+                          </option>
+                      </select>
+                  </div>
+                  <button>
+                      Send!
+                  </button>
+              </form>
           </div>
       </div>
       <div class="user-profile__post-wrapper">
@@ -24,6 +41,12 @@ export default {
   components: { PostItem },
   data() {
     return {
+      newPostContent: '',
+      selectedPostType: 'instance',
+      postType: [
+        {value: 'draft', name: 'Draft'},
+        {value: 'instance', name: 'Instance'}
+      ],
       followers: 0,
       user: {
         id: 1,
@@ -33,9 +56,9 @@ export default {
         email: 'alena22292@mail.ru',
         isAdmin: true,
         posts: [
-            {id: 1, content: 'Hi there, I am using this new framework. IT is cool!'},
-            {id: 2, content: 'This framework called VueJS'},
-            {id: 3, content: 'I have a list awesome tools, if you want me to share them, please send pm'} 
+            {id: 1, content: 'Hi there, I am using this new framework. IT is cool!', likes: 0},
+            {id: 2, content: 'This framework called VueJS', likes: 0},
+            {id: 3, content: 'I have a list awesome tools, if you want me to share them, please send pm', likes: 0} 
         ]
       }
     }
@@ -71,17 +94,33 @@ export default {
     },
     toggleFavourite(id) {
       console.log(`You call a toggle function on #${id} post`);
+      return this.user.posts.filter(post => {
+          if (post.id === id) {
+              post.likes++
+          }
+      });   
+    },
+    createNewPost() {
+       if (this.newPostContent && this.selectedPostType !== 'draft') {
+          this.user.posts.unshift({
+              id: this.user.posts.length + 1,
+              content: this.newPostContent,
+              likes: 0
+          });
+          this.newPostContent = '';
+       }
     }
+
   },
   // lifecycle hook:
   mounted() {
-    setTimeout(() => this.sayHello("Alla"), 2000);
-    
+    setTimeout(() => this.sayHello("Alla"), 2000); 
   }
 }
 </script>
 
 <style>
+/* There is an option to add scoped to the style: <style scoped>; it means that all style defined only for this component */
     .user-profile__grid-box {
         display: grid;
         grid-template-columns: 1fr 3fr;
@@ -114,5 +153,14 @@ export default {
   .user-profile__user {
       font-weight: 800;
   }
+  /* Form create */
+  .user-profile__form-create {
+      margin-top: 30px;
+  }
+  label {
+      font-weight: 800;
+      margin-right: 15px;
+  }
+  
 
 </style>
