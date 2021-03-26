@@ -11,7 +11,7 @@
           </div>
       </div>
       <div class="user-profile__post-wrapper">
-        <PostItem v-for="item in user.posts" :key="item.id" :username="user.username" :post="item"/>
+        <PostItem v-for="item in user.posts" :key="item.id" :username="user.username" :post="item" @favourite="toggleFavourite" />
       </div>
   </div>
 </template>
@@ -68,6 +68,9 @@ export default {
     },
     sayHello(name) {
       console.log(`Say hello to a new friend ${name} in 2 sec`);
+    },
+    toggleFavourite(id) {
+      console.log(`You call a toggle function on #${id} post`);
     }
   },
   // lifecycle hook:
