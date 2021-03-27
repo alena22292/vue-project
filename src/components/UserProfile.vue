@@ -119,8 +119,8 @@ export default {
 }
 </script>
 
-<style>
-/* There is an option to add scoped to the style: <style scoped>; it means that all style defined only for this component */
+<style lang="scss" scoped>
+/* There is an option to add scoped to the style: <style scoped>; it means that all style defined only for this components */
     .user-profile__grid-box {
         display: grid;
         grid-template-columns: 1fr 3fr;

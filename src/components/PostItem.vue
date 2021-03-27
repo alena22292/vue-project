@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .post-item {
     position: relative;
     text-align: left;
