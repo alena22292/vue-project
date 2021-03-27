@@ -1,4 +1,14 @@
 <template>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm">
+    <div class="container-fluid d-flex">
+      <a class="navbar-brand">Messanger</a>
+      <div class="navbar-username">
+         {{ user.username }}
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
   <div class="user-profile__grid-box">
       <div class="user-profile">
           <div class="user-profile__wrapper">
@@ -127,10 +137,23 @@ export default {
 
 <style lang="scss" scoped>
 /* There is an option to add scoped to the style: <style scoped>; it means that all style defined only for this components */
+    nav {
+      margin-bottom: 30px;
+      background-color: palegreen;
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.6rem;
+      }
+      .navbar-username {
+        margin-right: 30px;
+        font-weight: bold;
+      }
+    }
     .user-profile__grid-box {
         display: grid;
         grid-template-columns: 1fr 3fr;
         grid-gap: 30px;
+        padding: 30px 40px;
         .user-profile__wrapper {
           background: #f6f5f5;
           padding: 20px 35px;

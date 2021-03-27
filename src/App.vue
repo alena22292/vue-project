@@ -20,7 +20,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #276678;
-  margin-top: 20px;
-  padding: 30px 40px;
+  // margin-top: 20px;
 }
 </style>
