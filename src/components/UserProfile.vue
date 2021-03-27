@@ -8,8 +8,9 @@
               </div>
               <span class="user-profile__block">Followers: {{ followers }}</span>
               <button @click="followUser">Follow</button> <button @click="unFollowUser">Unfollow</button>
-              <form action="" class="user-profile__form-create" @submit.prevent="createNewPost">
-                  <label for="newPost">New Post</label>
+              <!-- :class takes an object with name of classes which will be invoked when condition applies -->
+              <form action="" class="user-profile__form-create" @submit.prevent="createNewPost" :class="{'--exceed': countedCharactersPost > 20}">
+                  <label for="newPost">New Post ({{ countedCharactersPost }}/20)</label>
                   <!-- v-model needs for synce up to the given data() -->
                   <textarea id="newPost" rows="4" v-model="newPostContent"></textarea>
                   <div class="user-profile__post-type">
@@ -21,7 +22,7 @@
                           </option>
                       </select>
                   </div>
-                  <button>
+                  <button class="btn-submit">
                       Send!
                   </button>
               </form>
@@ -73,11 +74,16 @@ export default {
       }
     }
   },
+  // computed property: don't accept arguments, the get dynamic values based on other props
   computed: {
     fullName() {
       return `${this.user.name} ${this.user.surname}`;
+    }, 
+    countedCharactersPost() {
+      return this.newPostContent.length;
     }
   },
+  // methods are static functions used to react to events, they accept arguments
   methods: {
     followUser() {
       this.followers++;
@@ -125,42 +131,54 @@ export default {
         display: grid;
         grid-template-columns: 1fr 3fr;
         grid-gap: 30px;
+        .user-profile__wrapper {
+          background: #f6f5f5;
+          padding: 20px 35px;
+          .user-profile__flex-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .user-profile__admin-badge {
+                font-size: 0.6em;
+                font-weight: 600;
+                background: red;
+                color: white;
+                border-radius: 5px;
+                padding: 4px 6px;
+                margin-left: 10px;
+            }
+          }
+          .user-profile__block {
+              display: block;
+              margin-bottom: 8px;
+          }
+        }
     }
-  .user-profile__admin-badge {
-      font-size: 0.6em;
-      font-weight: 600;
-      background: red;
-      color: white;
-      border-radius: 5px;
-      padding: 4px 6px;
-      margin-left: 10px;
-  }
-  .user-profile__flex-box {
-     display: flex;
-     align-items: center;
-     margin-bottom: 10px;
-  }
-
-  .user-profile__wrapper {
-    background: #f6f5f5;
-    padding: 20px 35px;;
-  }
-
-  .user-profile__block {
-      display: block;
-      margin-bottom: 8px;
-  }
   .user-profile__user {
       font-weight: 800;
+  }
+  /* Button */
+  button {
+    cursor: pointer;
   }
   /* Form create */
   .user-profile__form-create {
       margin-top: 30px;
+      label {
+          font-weight: 800;
+          margin-right: 15px;
+      }
+      &.--exceed {
+        color: red;
+        .btn-submit {
+          cursor: not-allowed;
+          background-color: red;
+          color: white;
+          pointer-events: none;
+        }
+      }
   }
-  label {
-      font-weight: 800;
-      margin-right: 15px;
-  }
+  
   
 
 </style>
