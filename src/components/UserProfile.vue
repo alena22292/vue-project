@@ -3,6 +3,8 @@
   <Navbar :username="user.username" />
   <!-- End Navbar -->
   <div class="user-profile__grid-box">
+
+
       <div class="user-profile">
           <div class="user-profile__wrapper">
               <div class="user-profile__flex-box">
@@ -11,26 +13,10 @@
               </div>
               <span class="user-profile__block">Followers: {{ followers }}</span>
               <button @click="followUser">Follow</button> <button @click="unFollowUser">Unfollow</button>
-              <!-- :class takes an object with name of classes which will be invoked when condition applies -->
-              <form action="" class="user-profile__form-create" @submit.prevent="createNewPost" :class="{'--exceed': countedCharactersPost > 20}">
-                  <label for="newPost">New Post ({{ countedCharactersPost }}/20)</label>
-                  <!-- v-model needs for synce up to the given data() -->
-                  <textarea id="newPost" rows="4" v-model="newPostContent"></textarea>
-                  <div class="user-profile__post-type">
-                      <label for="postType">Post Type</label>
-                      <select id="postType" v-model="selectedPostType">
-                          <!-- :value in this case represents a reference string -->
-                          <option :value="option.value" v-for="(option, index) in postType" :key="index">
-                              {{ option.name }}
-                          </option>
-                      </select>
-                  </div>
-                  <button class="btn-submit">
-                      Send!
-                  </button>
-              </form>
+              <CreatePostPane @add-post="createNewPost" /> 
           </div>
       </div>
+    
       <div class="user-profile__post-wrapper">
         <PostItem v-for="item in user.posts" :key="item.id" :username="user.username" :post="item" @favourite="toggleFavourite" />
       </div>
@@ -40,18 +26,13 @@
 <script>
 import PostItem from './PostItem.vue';
 import Navbar from './Navbar.vue';
+import CreatePostPane from './CreatePostPane.vue';
 
 export default {
   name: 'UserProfile',
-  components: { PostItem, Navbar },
+  components: { PostItem, Navbar, CreatePostPane },
   data() {
     return {
-      newPostContent: '',
-      selectedPostType: 'instance',
-      postType: [
-        {value: 'draft', name: 'Draft'},
-        {value: 'instance', name: 'Instance'}
-      ],
       followers: 0,
       user: {
         id: 1,
@@ -82,9 +63,6 @@ export default {
   computed: {
     fullName() {
       return `${this.user.name} ${this.user.surname}`;
-    }, 
-    countedCharactersPost() {
-      return this.newPostContent.length;
     }
   },
   // methods are static functions used to react to events, they accept arguments
@@ -110,17 +88,13 @@ export default {
           }
       });   
     },
-    createNewPost() {
-       if (this.newPostContent && this.selectedPostType !== 'draft') {
-          this.user.posts.unshift({
-              id: this.user.posts.length + 1,
-              content: this.newPostContent,
-              likes: 0
-          });
-          this.newPostContent = '';
-       }
+    createNewPost(newContent) {
+        this.user.posts.unshift({
+            id: this.user.posts.length + 1,
+            content: newContent,
+            likes: 0  
+       })
     }
-
   },
   // lifecycle hook:
   mounted() {
