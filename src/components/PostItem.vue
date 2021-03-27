@@ -2,7 +2,7 @@
     <div class="post-item">
         <div class="post-item__user">@{{ username }}</div> 
         <div>{{ post.content }}</div> 
-        <span class="post-item__heart" @click="favouritePost(post.id)">{{ post.likes }} <i class="far fa-heart"></i></span>    
+        <span class="post-item__heart" @click="favouritePost(post.id)">{{ post.likes }} <i class="far fa-heart" :class="{'--liked': post.likes > 0}"></i></span>    
     </div>
 </template>
 
@@ -37,11 +37,12 @@ export default {
     padding: 12px 20px;
     cursor: pointer;
     /* transition: all 0.25s ease; */
+    &:hover {
+        /* transform: scale(1.02);    */
+        box-shadow: 0px 1px 3px rgba(0, 140, 186, 0.5);
+    }
 }
-.post-item:hover {
-    /* transform: scale(1.02);    */
-    box-shadow: 0px 1px 3px rgba(0, 140, 186, 0.5);
-}
+
 .post-item__user {
     font-weight: 500;
 }
@@ -49,10 +50,13 @@ export default {
    position: absolute;
    right: 10px;
    bottom: 10px;
+   & i:hover {
+     font-weight: 600;
+   }
 }
-.post-item__heart i:hover {
-   color: red;
-   font-weight: 600;
+// Liked post
+.--liked {
+    color: rgb(233, 56, 56);
 }
 
 </style>

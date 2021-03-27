@@ -172,13 +172,11 @@ export default {
         color: red;
         .btn-submit {
           cursor: not-allowed;
+          border: none;
           background-color: red;
           color: white;
           pointer-events: none;
         }
       }
   }
-  
-  
-
 </style>
