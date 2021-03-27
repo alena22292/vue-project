@@ -1,38 +1,37 @@
 <template>
   <!-- Navbar -->
-  <Navbar :username="user.username" />
+  <Navbar :username="state.user.username" />
   <!-- End Navbar -->
   <div class="user-profile__grid-box">
-
-
       <div class="user-profile">
           <div class="user-profile__wrapper">
               <div class="user-profile__flex-box">
-                <span class="user-profile__user">@{{ user.username }}</span>
-                <span class="user-profile__admin-badge" v-if="user.isAdmin">Admin</span>
+                <span class="user-profile__user">@{{ state.user.username }}</span>
+                <span class="user-profile__admin-badge" v-if="state.user.isAdmin">Admin</span>
               </div>
-              <span class="user-profile__block">Followers: {{ followers }}</span>
+              <span class="user-profile__block">Followers: {{ state.followers }}</span>
               <button @click="followUser">Follow</button> <button @click="unFollowUser">Unfollow</button>
-              <CreatePostPane @add-post="createNewPost" /> 
+              <CreatePostPanel @add-post="createNewPost" /> 
           </div>
       </div>
     
       <div class="user-profile__post-wrapper">
-        <PostItem v-for="item in user.posts" :key="item.id" :username="user.username" :post="item" @favourite="toggleFavourite" />
+        <PostItem v-for="item in state.user.posts" :key="item.id" :username="state.user.username" :post="item" @favourite="toggleFavourite" />
       </div>
   </div>
 </template>
 
 <script>
+import { reactive, computed } from 'vue';
 import PostItem from './PostItem.vue';
 import Navbar from './Navbar.vue';
-import CreatePostPane from './CreatePostPane.vue';
+import CreatePostPanel from './CreatePostPanel.vue';
 
 export default {
   name: 'UserProfile',
-  components: { PostItem, Navbar, CreatePostPane },
-  data() {
-    return {
+  components: { PostItem, Navbar, CreatePostPanel },
+  setup() {
+    const state = reactive({
       followers: 0,
       user: {
         id: 1,
@@ -47,59 +46,64 @@ export default {
             {id: 3, content: 'I have a list awesome tools, if you want me to share them, please send pm', likes: 0} 
         ]
       }
+    })
+
+    // computed property: don't accept arguments, the get dynamic values based on other props
+    const fullName = computed(() => `${state.user.name} ${state.user.surname}`);
+
+    // methods are static functions used to react to events, they accept arguments
+    function followUser() {
+      state.followers++;
     }
-  },
-  // watch needed to compare the prev and current state of the object:
-  watch: {
-    followers(currentCount, prevCount) {
-      if (currentCount > prevCount) {
-        console.log(`${this.user.name}, you have just gained a new friend!`)
+    function unFollowUser() {
+      if (state.followers >= 1) {
+        state.followers--;
       } else {
-        console.log(`${this.user.name}, you have just lost one friend!`)
+        state.followers = 0;
       }
     }
-  },
-  // computed property: don't accept arguments, the get dynamic values based on other props
-  computed: {
-    fullName() {
-      return `${this.user.name} ${this.user.surname}`;
-    }
-  },
-  // methods are static functions used to react to events, they accept arguments
-  methods: {
-    followUser() {
-      this.followers++;
-    },
-    unFollowUser() {
-      if (this.followers >= 1) {
-        this.followers--;
-      } else {
-        this.followers = 0;
-      }
-    },
-    sayHello(name) {
-      console.log(`Say hello to a new friend ${name} in 2 sec`);
-    },
-    toggleFavourite(id) {
+    function toggleFavourite(id) {
       console.log(`You call a toggle function on #${id} post`);
-      return this.user.posts.filter(post => {
+      return state.user.posts.filter(post => {
           if (post.id === id) {
               post.likes++
           }
-      });   
-    },
-    createNewPost(newContent) {
-        this.user.posts.unshift({
-            id: this.user.posts.length + 1,
+      }) 
+    }
+    function createNewPost(newContent) {
+        state.user.posts.unshift({
+            id: state.user.posts.length + 1,
             content: newContent,
             likes: 0  
        })
     }
-  },
-  // lifecycle hook:
-  mounted() {
-    setTimeout(() => this.sayHello("Alla"), 2000); 
+
+    return {
+      state,
+      fullName,
+      followUser,
+      unFollowUser,
+      toggleFavourite,
+      createNewPost
+    }
   }
+
+
+  // watch needed to compare the prev and current state of the object:
+  // watch: {
+  //   followers(currentCount, prevCount) {
+  //     if (currentCount > prevCount) {
+  //       console.log(`${state.user.name}, you have just gained a new friend!`)
+  //     } else {
+  //       console.log(`${state.user.name}, you have just lost one friend!`)
+  //     }
+  //   }
+  // },
+  
+  // lifecycle hook:
+  // mounted() {
+  //   setTimeout(() => state.sayHello("Alla"), 2000); 
+  // }
 }
 </script>
 
