@@ -1,9 +1,11 @@
 <template>
-  <!-- Navbar -->
-  <Navbar :username="state.username" />
-  <!-- End Navbar -->
-  <!-- <router-link to="/">Home</router-link> -->
-  <router-view/>
+  <div class="app">
+    <!-- Navbar -->
+    <Navbar :username="state.username" />
+    <!-- End Navbar -->
+    <!-- <router-link to="/">Home</router-link> -->
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -27,4 +29,8 @@ export default {
 
 
 <style lang="scss">
+  .app {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(52, 70, 97);
+  }
 </style>

@@ -37,7 +37,7 @@ export default {
 
     const state = reactive({
       followers: 0,
-      user: users.users.filter(obj => obj.id == userId.value)[0]
+      user: users.users.filter(obj => obj.id == userId.value)[0] || alert("The user doesn't exist yet")
     })
 
     // computed property: don't accept arguments, the get dynamic values based on other props

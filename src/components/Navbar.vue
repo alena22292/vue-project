@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-sm">
     <div class="container-fluid d-flex">
-      <a class="navbar-brand">Messanger</a>
+      <router-link to='/'>
+        <div class="navbar-brand">Messanger</div>
+      </router-link>
       <div class="navbar-username">
          {{ username }}
       </div>

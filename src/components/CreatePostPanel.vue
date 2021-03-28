@@ -4,18 +4,21 @@
         <label for="newPost">New Post ({{ countedCharactersPost }}/20)</label>
         <!-- v-model needs for synce up to the given data() -->
         <textarea id="newPost" rows="4" v-model="state.newPostContent"></textarea>
-        <div class="user-profile__post-type">
-            <label for="postType">Post Type</label>
-            <select id="postType" v-model="state.selectedPostType">
-                <!-- :value in this case represents a reference string -->
-                <option :value="option.value" v-for="(option, index) in state.postType" :key="index">
-                    {{ option.name }}
-                </option>
-            </select>
+        <div class="d-flex">
+            <div class="user-profile__post-type">
+                <label for="postType">Post Type</label>
+                <select id="postType" v-model="state.selectedPostType">
+                    <!-- :value in this case represents a reference string -->
+                    <option :value="option.value" v-for="(option, index) in state.postType" :key="index">
+                        {{ option.name }}
+                    </option>
+                </select>
+            </div>
+            <button class="btn btn-success btn-submit">
+                Send!
+            </button>
         </div>
-        <button class="btn-submit">
-            Send!
-        </button>
+
     </form>
 </template>
 
@@ -66,10 +69,10 @@ export default {
         color: red;
         .btn-submit {
           cursor: not-allowed;
+          pointer-events: none;
           border: none;
           background-color: red;
           color: white;
-          pointer-events: none;
         }
       }
   }
