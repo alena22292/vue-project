@@ -37,7 +37,7 @@ export default {
         
         const countedCharactersPost = computed(() => state.newPostContent.length);
         function addPostToList() {
-            if (state.newPostContent && state.selectedPostType !== 'draft') {
+            if (state.newPostContent.length <= 20 && state.selectedPostType !== 'draft') {
                 ctx.emit('add-post', state.newPostContent)
                 state.newPostContent = '';
             }
@@ -55,5 +55,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  /* Form create */
+  .user-profile__form-create {
+      margin-top: 30px;
+      label {
+          font-weight: 800;
+          margin-right: 15px;
+      }
+      &.--exceed {
+        color: red;
+        .btn-submit {
+          cursor: not-allowed;
+          border: none;
+          background-color: red;
+          color: white;
+          pointer-events: none;
+        }
+      }
+  }
 </style>

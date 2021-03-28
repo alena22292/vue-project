@@ -23,9 +23,9 @@
 
 <script>
 import { reactive, computed } from 'vue';
-import PostItem from './PostItem.vue';
-import Navbar from './Navbar.vue';
-import CreatePostPanel from './CreatePostPanel.vue';
+import PostItem from '../components/PostItem.vue';
+import Navbar from '../components/Navbar.vue';
+import CreatePostPanel from '../components/CreatePostPanel.vue';
 
 export default {
   name: 'UserProfile',
@@ -143,23 +143,5 @@ export default {
   /* Button */
   button {
     cursor: pointer;
-  }
-  /* Form create */
-  .user-profile__form-create {
-      margin-top: 30px;
-      label {
-          font-weight: 800;
-          margin-right: 15px;
-      }
-      &.--exceed {
-        color: red;
-        .btn-submit {
-          cursor: not-allowed;
-          border: none;
-          background-color: red;
-          color: white;
-          pointer-events: none;
-        }
-      }
   }
 </style>
