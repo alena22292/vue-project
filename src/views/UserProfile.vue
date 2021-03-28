@@ -20,6 +20,8 @@
 
 <script>
 import { reactive, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { users } from '../assets/users';
 import PostItem from '../components/PostItem.vue';
 import CreatePostPanel from '../components/CreatePostPanel.vue';
 
@@ -27,21 +29,15 @@ export default {
   name: 'UserProfile',
   components: { PostItem, CreatePostPanel },
   setup() {
+    const route = useRoute();
+
+    // useRoute allows you to retrieve information from Router;
+    const userId = computed(() => route.params.userId);
+    // if (userId) fetchUserFromApi(userID);
+
     const state = reactive({
       followers: 0,
-      user: {
-        id: 1,
-        username: '_AlenaGr',
-        name: 'Alena',
-        surname: 'Gritsiuk',
-        email: 'alena22292@mail.ru',
-        isAdmin: true,
-        posts: [
-            {id: 1, content: 'Hi there, I am using this new framework. IT is cool!', likes: 0},
-            {id: 2, content: 'This framework called VueJS', likes: 0},
-            {id: 3, content: 'I have a list awesome tools, if you want me to share them, please send pm', likes: 0} 
-        ]
-      }
+      user: users.users.filter(obj => obj.id == userId.value)[0]
     })
 
     // computed property: don't accept arguments, the get dynamic values based on other props
@@ -50,6 +46,7 @@ export default {
     // methods are static functions used to react to events, they accept arguments
     function followUser() {
       state.followers++;
+      console.log(state.user);
     }
     function unFollowUser() {
       if (state.followers >= 1) {
@@ -76,6 +73,7 @@ export default {
 
     return {
       state,
+      userId,
       fullName,
       followUser,
       unFollowUser,

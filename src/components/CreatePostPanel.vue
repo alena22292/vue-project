@@ -37,7 +37,7 @@ export default {
         
         const countedCharactersPost = computed(() => state.newPostContent.length);
         function addPostToList() {
-            if (state.newPostContent.length <= 20 && state.selectedPostType !== 'draft') {
+            if (state.newPostContent && state.newPostContent.length <= 20 && state.selectedPostType !== 'draft') {
                 ctx.emit('add-post', state.newPostContent)
                 state.newPostContent = '';
             }

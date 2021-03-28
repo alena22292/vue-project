@@ -1,4 +1,4 @@
-{
+export const users = {
     "users": [
         {
             "id": 1,
