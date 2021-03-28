@@ -1,14 +1,30 @@
 <template>
+  <!-- Navbar -->
+  <Navbar :username="state.username" />
+  <!-- End Navbar -->
   <!-- <router-link to="/">Home</router-link> -->
-  <router-view />
+  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  // font-family: Avenir,
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
-  // text-align: center;
-  // color: #2c3e50;
+<script>
+import { reactive } from 'vue';
+import Navbar from './components/Navbar';
+
+export default {
+  name: 'App', 
+  components: { Navbar },
+  setup () {
+    const state = reactive({
+      username: "_AlanPoo"
+    })
+
+    return {
+      state
+    }
+  }
 }
+</script>
+
+
+<style lang="scss">
 </style>

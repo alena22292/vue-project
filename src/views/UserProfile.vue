@@ -1,7 +1,4 @@
 <template>
-  <!-- Navbar -->
-  <Navbar :username="state.user.username" />
-  <!-- End Navbar -->
   <div class="user-profile__grid-box">
       <div class="user-profile">
           <div class="user-profile__wrapper">
@@ -24,12 +21,11 @@
 <script>
 import { reactive, computed } from 'vue';
 import PostItem from '../components/PostItem.vue';
-import Navbar from '../components/Navbar.vue';
 import CreatePostPanel from '../components/CreatePostPanel.vue';
 
 export default {
   name: 'UserProfile',
-  components: { PostItem, Navbar, CreatePostPanel },
+  components: { PostItem, CreatePostPanel },
   setup() {
     const state = reactive({
       followers: 0,
