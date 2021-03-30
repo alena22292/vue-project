@@ -1,7 +1,10 @@
+// VAriables:
+$bgColor: rgb(204, 242, 230);
+
 body {
     margin: 0 !important;
     padding: 0 !important;
-    background-color: rgb(220, 242, 235);
+    background-color: $bgColor;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(52, 70, 97);
 }
